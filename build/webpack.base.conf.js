@@ -11,18 +11,31 @@ const PATHS = {
 };
 
 module.exports = {
-
+    // Base config
     externals: {
         paths: PATHS
     },
 
     entry: {
-        app: PATHS.src
+        app: PATHS.src,
+        personal: `${PATHS.src}/personal.js`,
     },
     output: {
-        filename: `${PATHS.assets}js/[name].js`,
+        filename: `${PATHS.assets}js/[name].[hash].js`,
         path: PATHS.dist,
         publicPath: '/'
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    name: 'vendors',
+                    test: /node_modules/,
+                    chunks: 'all',
+                    enforce: true
+                }
+            }
+        }
     },
     module: {
         rules: [
@@ -101,12 +114,12 @@ module.exports = {
     plugins: [
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
-            filename: `${PATHS.assets}css/[name].css`
+            filename: `${PATHS.assets}css/[name].[hash].css`
         }),
         new HtmlWebpackPlugin({
-            hash: false,
             template: `${PATHS.src}/index.html`,
-            filename: "./index.html"
+            filename: './index.html',
+            inject: true
         }),
         new CopyWebpackPlugin([
             { from: `${PATHS.src}/img`, to: `${PATHS.assets}img` },
