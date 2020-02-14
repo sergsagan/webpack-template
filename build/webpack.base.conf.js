@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { VueLoaderPlugin } = require("vue-loader");
 
 const PATHS = {
     src: path.join(__dirname, '../src'),
@@ -26,11 +27,23 @@ module.exports = {
     module: {
         rules: [
             {
+                // Javascript
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: '/node_modules'
             },
             {
+                // Vue
+                test: /\.vue$/,
+                loader: "vue-loader",
+                options: {
+                    loader: {
+                        scss: "vue-style-loader!css-loader!sass-loader"
+                    }
+                }
+            },
+            {
+                // images/icons
                 test: /\.(png|jpg|gif|svg)$/,
                 loader: 'file-loader',
                 options: {
@@ -38,6 +51,7 @@ module.exports = {
                 }
             },
             {
+                // scss
                 test: /\.scss$/,
                 use: [
                     "style-loader",
@@ -48,7 +62,10 @@ module.exports = {
                     },
                     {
                         loader: "postcss-loader",
-                        options: { sourceMap: true, config: {path: `${PATHS.src}/js/postcss.config.js`} }
+                        options: {
+                            sourceMap: true,
+                            config: {path: `${PATHS.src}/js/postcss.config.js`}
+                        }
                     },
                     {
                         loader: "sass-loader",
@@ -67,14 +84,22 @@ module.exports = {
                     },
                     {
                         loader: "postcss-loader",
-                        options: { sourceMap: true, config: { path: `${PATHS.src}/js/postcss.config.js`} }
+                        options: { sourceMap: true,
+                            config: {
+                            path: `${PATHS.src}/js/postcss.config.js`}
+                        }
                     }
                 ]
             },
         ]
     },
-
+    resolve: {
+        alias: {
+            vue$: "vue/dist/vue.js"
+        }
+    },
     plugins: [
+        new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
             filename: `${PATHS.assets}css/[name].css`
         }),
