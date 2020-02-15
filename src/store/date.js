@@ -1,12 +1,12 @@
 export default {
     state: {
-        description: 'Vue test'
+        date: new Date()
     },
     mutations: {},
     actions: {},
     getters: {
-        getDescription(state) {
-            return state.description
+        getDate(state) {
+            return state.date
         }
     }
 }

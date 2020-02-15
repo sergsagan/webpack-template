@@ -2,7 +2,7 @@
     <section id="main">
         <div class="container">
             <h2>{{ message }}</h2>
-            <span>{{ description }}</span>
+            <span>{{ date }}</span>
             <p>Vue старается управлять элементами DOM настолько эффективно, насколько это возможно, зачастую переиспользуя их вместо того чтобы создавать заново.</p>
         </div>
     </section>
@@ -12,12 +12,12 @@ export default {
     data() {
         return {
             message: null,
-            description: null
+            date: null
         }
     },
     created() {
         this.message = this.$store.getters.getMessage;
-        this.description = this.$store.getters.getDescription;
+        this.date = this.$store.getters.getDate;
     }
 }
 </script>
