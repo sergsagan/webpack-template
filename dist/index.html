@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Webpack Template</title>
+<link href="/assets/css/app.4b9ffd22181a7f19f947.css" rel="stylesheet"></head>
+<body>
+<div class="wrapper">
+    <h1>Webpack title</h1>
+    <img src="/assets/img/logo-webpack.png" alt="image">
+
+    <div id="app">
+        <header></header>
+
+        <div class="content-wrapper">
+
+            <!-- expamle section (remove me) -->
+            <section id="promo" style="text-align:center;">
+                <div class="container">
+                    <h1>Webpack Template</h1>
+                    <button @click="component = !component">Show vue component</button>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- expamle vue component -->
+        <example-component v-if="component"></example-component>
+
+        <footer></footer>
+    </div> <!-- end #app wrapper -->
+</div> <!-- end main wrapper -->
+<script type="text/javascript" src="/assets/js/vendors.4b9ffd22181a7f19f947.js"></script><script type="text/javascript" src="/assets/js/app.4b9ffd22181a7f19f947.js"></script></body>
+</html>
