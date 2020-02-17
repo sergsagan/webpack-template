@@ -18,7 +18,6 @@ module.exports = {
 
     entry: {
         app: PATHS.src,
-        personal: `${PATHS.src}/personal.js`,
     },
     output: {
         filename: `${PATHS.assets}js/[name].[hash].js`,
@@ -29,9 +28,9 @@ module.exports = {
         splitChunks: {
             cacheGroups: {
                 vendor: {
-                    name: 'vendors',
+                    name: "vendors",
                     test: /node_modules/,
-                    chunks: 'all',
+                    chunks: "all",
                     enforce: true
                 }
             }
