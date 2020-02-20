@@ -1,12 +1,9 @@
-<template>
-    <section id="main">
-        <div class="container">
-            <h2>{{ message }}</h2>
-            <span>{{ date | formatDate }}</span>
-
-            <p>Vue старается управлять элементами DOM настолько эффективно, насколько это возможно, зачастую переиспользуя их вместо того чтобы создавать заново.</p>
-        </div>
-    </section>
+<template lang="pug">
+    section
+        .container
+            img(src="/assets/img/logo.png" :alt="message")
+            span {{ date }}
+            p {{ message }}
 </template>
 <script>
     import { formatDate } from '../js/common.js';

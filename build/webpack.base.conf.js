@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -9,6 +10,9 @@ const PATHS = {
     dist: path.join(__dirname, '../dist'),
     assets: 'assets/'
 };
+
+const PAGES_DIR = `${PATHS.src}/pug/pages/`;
+const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.pug'));
 
 module.exports = {
     // Base config
@@ -38,6 +42,19 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                // Pug
+                test: /\.pug$/,
+                oneOf: [
+                    {
+                        resourceQuery: /^\?vue/,
+                        use: ['pug-plain-loader']
+                    },
+                    {
+                        use: ['pug-loader']
+                    }
+                ]
+            },
             {
                 // Javascript
                 test: /\.js$/,
@@ -123,15 +140,14 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: `${PATHS.assets}css/[name].[hash].css`
         }),
-        new HtmlWebpackPlugin({
-            template: `${PATHS.src}/index.html`,
-            filename: './index.html',
-            inject: true
-        }),
         new CopyWebpackPlugin([
             { from: `${PATHS.src}/${PATHS.assets}img`, to: `${PATHS.assets}img` },
             { from: `${PATHS.src}/${PATHS.assets}fonts`, to: `${PATHS.assets}fonts` },
             { from: `${PATHS.src}/static`, to: '' },
-        ])
+        ]),
+        ...PAGES.map(page => new HtmlWebpackPlugin({
+            template: `${PAGES_DIR}/${page}`,
+            filename: `./${page.replace(/\.pug/, '.html')}`
+        }))
     ]
 };

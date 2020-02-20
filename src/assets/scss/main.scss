@@ -85,13 +85,24 @@ section,
   }
 }
 
+button {
+  display: flex;
+  max-width: 160px;
+  margin: 0 auto;
+  padding: 5px 10px;
+  color: white;
+  background-color: green;
+  border-radius: 10px;
+}
+
 .content-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   flex: 0 0 auto;
   position: relative;
